@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario - The Collection</title>
+    <meta name="description" content="Inventario exclusivo The Collection. Autos premium disponibles para entrega inmediata en la CDMX.">
+    <meta name="theme-color" content="#c9a74d">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thecollection.mx/catalogo.html">
+    <meta property="og:title" content="Inventario | The Collection">
+    <meta property="og:description" content="Vehículos premium seleccionados para entusiastas y coleccionistas.">
+    <meta property="og:image" content="../images/logo.png">
+
+    <link rel="icon" type="image/png" href="../images/favicon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/styles.css">
+</head>
+<body>
+    <div class="background-decorations" aria-hidden="true">
+        <div class="bg-circle bg-circle-1"></div>
+        <div class="bg-circle bg-circle-2"></div>
+        <div class="bg-circle bg-circle-3"></div>
+        <div class="bg-line bg-line-1"></div>
+        <div class="bg-line bg-line-2"></div>
+    </div>
+
+    <header id="navbar">
+        <div class="container header-content">
+            <a href="index.html" class="logo">The Collection <span>CDMX</span></a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#" class="text-gold active">Inventario</a></li>
+                    <li><a href="index.html#ubicacion">Ubicación</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger" aria-label="Abrir menú">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="spacer-nav"></div>
+
+    <main>
+        <section id="catalogo" class="catalog-section container">
+            <div class="section-header text-center">
+                <h2><span class="text-gold">Inventario</span> Disponible</h2>
+                <div class="divider"></div>
+                <p class="section-subtitle">Vehículos de alta gama seleccionados para entrega inmediata</p>
+            </div>
+
+            <div class="filters">
+                <div class="filter-group">
+                    <i class="fas fa-filter"></i>
+                    <select id="brand-filter" aria-label="Filtrar por marca">
+                        <option value="all">Todas las Marcas</option>
+                        <option value="Lamborghini">Lamborghini</option>
+                        <option value="Ferrari">Ferrari</option>
+                        <option value="Porsche">Porsche</option>
+                        <option value="Mercedes-Benz">Mercedes-Benz</option>
+                        <option value="Aston Martin">Aston Martin</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <i class="fas fa-dollar-sign"></i>
+                    <select id="price-filter" aria-label="Filtrar por presupuesto">
+                        <option value="all">Filtrar por Presupuesto</option>
+                        <option value="low">Menos de 2 MDP</option>
+                        <option value="mid">2 MDP - 5 MDP</option>
+                        <option value="high">Más de 5 MDP</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <i class="fas fa-sort-amount-down"></i>
+                    <select id="sort-filter" aria-label="Ordenar listado">
+                        <option value="default">Orden: Relevancia</option>
+                        <option value="price-asc">Precio: Menor a Mayor</option>
+                        <option value="price-desc">Precio: Mayor a Menor</option>
+                        <option value="year-desc">Año: Más Nuevos</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="cars-grid" class="cars-grid">
+                </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col">
+                <h3>The Collection</h3>
+                <p>Líderes en vehículos premium y de colección en México.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Ubicación</h3>
+                <p><i class="fas fa-map-marker-alt"></i>Santa Fe Ciudad de México.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Redes Sociales</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" class="social-link" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://tiktok.com" target="_blank" class="social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 The Collection. Todos los derechos reservados.</p>
+             <div class="footer-links">
+                <a href="../docs/aviso_privacidad.pdf" target="_blank">Aviso de Privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="car-modal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Cerrar modal">×</button>
+            <div class="modal-body">
+                <div class="modal-gallery">
+                    <div class="main-image-wrapper">
+                        <button class="nav-arrow prev" onclick="prevImage()" aria-label="Imagen anterior">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <img src="" alt="Detalle del vehículo" id="modal-main-img">
+                        <button class="nav-arrow next" onclick="nextImage()" aria-label="Siguiente imagen">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="thumbnails-container">
+                        <div class="gallery-thumbnails" id="modal-thumbnails"></div>
+                    </div>
+                </div>
+                <div class="modal-info">
+                    <h2 id="modal-title">Nombre del Auto</h2>
+                    <p class="modal-price" id="modal-price">$0</p>
+                    <div class="specs-grid" id="modal-specs"></div>
+                    <div class="luxury-features">
+                        <h3>Detalles</h3>
+                        <ul id="modal-features"></ul>
+                    </div>
+                    <div class="modal-actions">
+                        <a href="#" class="btn btn-outline" id="modal-whatsapp" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-whatsapp"></i> Cotizar por WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fullscreen-lightbox" class="lightbox" aria-hidden="true">
+        <button class="close-lightbox" aria-label="Cerrar vista completa">×</button>
+        <button class="nav-arrow lightbox-prev" id="lightbox-prev-btn"><i class="fas fa-chevron-left"></i></button>
+        <div class="lightbox-content">
+            <img src="" id="lightbox-img" alt="Vista completa">
+            <div class="lightbox-controls">
+                <button id="btn-zoom-toggle" class="btn-icon" aria-label="Zoom"><i class="fas fa-search-plus"></i></button>
+            </div>
+        </div>
+        <button class="nav-arrow lightbox-next" id="lightbox-next-btn"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <script src="../JS/script.js"></script>
+</body>
+</html>
