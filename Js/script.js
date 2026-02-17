@@ -378,8 +378,8 @@ const carsData = [
     }
 ];
 
-const NUMERO_DIRECTO = "5555556644";
-const EMAIL_CONTACTO = "Concecionarios@gmaik.com";
+const NUMERO_DIRECTO = "+52 5660797723";
+const EMAIL_CONTACTO = "Concecionarios@gmail.com";
 const carsGrid = document.getElementById('cars-grid');
 const brandFilter = document.getElementById('brand-filter');
 const priceFilter = document.getElementById('price-filter');
