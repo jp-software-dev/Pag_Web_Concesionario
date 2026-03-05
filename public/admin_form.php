@@ -25,7 +25,6 @@
                 <input type="hidden" name="id" value="<?php echo $car['id']; ?>">
             <?php endif; ?>
 
-            <!-- SECCIÓN: Información básica -->
             <div class="form-section">
                 <h3><i class="fas fa-info-circle"></i> Información básica</h3>
                 <div class="form-row">
@@ -70,7 +69,6 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN: Especificaciones técnicas -->
             <div class="form-section">
                 <h3><i class="fas fa-cog"></i> Especificaciones técnicas</h3>
                 <div class="form-row">
@@ -105,7 +103,6 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN: Características -->
             <div class="form-section">
                 <h3><i class="fas fa-list-ul"></i> Características</h3>
                 <div class="form-group">
@@ -120,7 +117,6 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN: Imágenes -->
             <div class="form-section">
                 <h3><i class="fas fa-images"></i> Imágenes</h3>
 
@@ -135,7 +131,7 @@
                         <div class="image-preview">
                             <?php for ($i = 1; $i <= $car['total_images']; $i++): 
                                 $imgPath = 'assets/images/' . $car['image_base'] . $i . $car['image_extension'];
-                                // CORRECCIÓN: Usamos __DIR__ para obtener la ruta absoluta correcta dentro de 'public'
+                                // Valida la existencia física del archivo para evitar enlaces rotos
                                 $fullPath = __DIR__ . '/' . $imgPath;
                                 $imgSrc = file_exists($fullPath) ? $imgPath : 'assets/images/placeholder.jpg';
                             ?>
@@ -162,7 +158,6 @@
                 </div>
             </div>
 
-            <!-- Botones -->
             <div class="btn-group">
                 <button type="submit" class="btn btn-primary btn-sm">
                     <i class="fas fa-save"></i> <?php echo isset($car) ? 'Actualizar Vehículo' : 'Guardar Vehículo'; ?>
@@ -173,6 +168,7 @@
     </div>
 
     <script>
+        // Confirma y ejecuta el borrado de las imágenes seleccionadas
         function confirmDeleteImages() {
             const checkboxes = document.querySelectorAll('input[name="delete_images[]"]:checked');
             if (checkboxes.length === 0) {
@@ -184,6 +180,7 @@
             }
         }
 
+        // Muestra en texto los nombres de los archivos listos para subir
         document.querySelectorAll('.file-input').forEach(input => {
             input.addEventListener('change', function() {
                 const infoDiv = this.closest('.form-group').querySelector('.file-info');
