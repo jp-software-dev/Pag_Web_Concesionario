@@ -1,3 +1,7 @@
+# Configuración sensible
+config/config.php
+database/collection_cars.sql
+
 # Entorno de desarrollo
 .vscode/
 *.code-workspace
@@ -8,13 +12,3 @@ Thumbs.db
 
 # Archivos de configuración de linters
 .hintrc
-
-# Configuración de base de datos con credenciales
-config/config.php
-
-# Archivo SQL de la base de datos (contiene estructura y datos)
-database/collection_cars.sql
-
-# Archivos de IDE (si usas otros editores)
-.idea/
-*.sublime-*
