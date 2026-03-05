@@ -18,7 +18,9 @@
                 <h2>Global Car Metepec</h2>
                 <p>Acceso al panel de administración</p>
             </div>
+            
             <div id="error-message" class="error-message" style="display: none;"></div>
+            
             <form method="post">
                 <div class="form-group">
                     <label for="username">USUARIO</label>
@@ -41,12 +43,15 @@
                     <i class="fas fa-sign-in-alt"></i> INGRESAR
                 </button>
             </form>
+            
             <div style="margin-top:20px; text-align:center; font-size:0.8rem; color:var(--gray);">
                 <i class="fas fa-shield-alt"></i> Acceso restringido
             </div>
         </div>
     </div>
+
     <script>
+        // Función para mostrar u ocultar la contraseña escrita
         function togglePassword() {
             const p = document.getElementById('password');
             const i = document.querySelector('.toggle-password i');
@@ -60,6 +65,8 @@
                 i.classList.add('fa-eye');
             }
         }
+        
+        // Inyecta el mensaje de error de PHP en caso de credenciales inválidas
         <?php if (isset($error)): ?>
         document.getElementById('error-message').style.display = 'block';
         document.getElementById('error-message').innerText = '<?php echo addslashes($error); ?>';
