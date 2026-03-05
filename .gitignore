@@ -6,12 +6,15 @@
 Thumbs.db
 .DS_Store
 
-# Logs y temporales
-*.log
-npm-debug.log*
-
-# Si llegas a usar node_modules en el futuro
-node_modules/
-
 # Archivos de configuración de linters
 .hintrc
+
+# Configuración de base de datos con credenciales
+config/config.php
+
+# Archivo SQL de la base de datos (contiene estructura y datos)
+database/collection_cars.sql
+
+# Archivos de IDE (si usas otros editores)
+.idea/
+*.sublime-*
