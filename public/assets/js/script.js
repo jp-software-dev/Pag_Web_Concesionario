@@ -18,8 +18,8 @@ let currentCarData = null;
 let touchStartX = 0;
 let touchEndX = 0;
 
+// Inicializa la carga de datos y eventos principales al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
-    // Cargar catálogo si estamos en la página de catálogo
     if (carsGrid) {
         fetch('api/vehicles.php')
             .then(response => response.json())
@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error al cargar vehículos:', error));
     }
 
-    // Cargar opciones para el select de contacto
     const selectInteres = document.getElementById('car-interest');
     if (selectInteres) {
         fetch('api/vehicles_select.php')
@@ -58,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSwipe();
 });
 
-// Renderiza las tarjetas de autos
+// Genera y muestra las tarjetas del catálogo en el contenedor principal
 function renderCars(cars) {
     if (!carsGrid) return;
     carsGrid.innerHTML = '';
@@ -81,12 +80,11 @@ function renderCars(cars) {
     carsGrid.appendChild(fragment);
 }
 
-// Crea una tarjeta individual
+// Construye la estructura HTML de una tarjeta de vehículo individual
 function createCarCard(car) {
     const card = document.createElement('div');
     card.className = 'car-card';
     const isNew = car.year >= 2024;
-    // Ruta corregida a public/assets/images/
     const imagePath = car.imageBase ? `public/assets/images/${car.imageBase}1${car.imageExtension}` : 'public/assets/images/placeholder.jpg';
     card.innerHTML = `
         ${isNew ? '<div class="car-badge">NUEVO</div>' : ''}
@@ -110,7 +108,7 @@ function createCarCard(car) {
     return card;
 }
 
-// Filtra y ordena
+// Filtra y ordena el arreglo de vehículos según los selects del usuario
 function filterCars() {
     if (!carsData.length) return;
     const brandValue = brandFilter.value;
@@ -142,7 +140,7 @@ function filterCars() {
     renderCars(filtered);
 }
 
-// Abre el modal de detalles
+// Extrae los datos del auto seleccionado y abre la ventana modal de detalles
 window.openModal = function(id) {
     if (!modal) return;
     const car = carsData.find(c => c.id === id);
@@ -160,6 +158,7 @@ window.openModal = function(id) {
     document.getElementById('modal-title').innerText = `${car.brand} ${car.model}`;
     document.getElementById('modal-price').innerText = `$${car.price} ${car.priceUnit}`;
     renderThumbnails();
+    
     const specsHTML = `
         <div class="spec-item"><span>Año</span><strong>${car.year}</strong></div>
         <div class="spec-item"><span>Kilómetros</span><strong>${car.kilometers} km</strong></div>
@@ -172,6 +171,7 @@ window.openModal = function(id) {
     `;
     document.getElementById('modal-specs').innerHTML = specsHTML;
     document.getElementById('modal-features').innerHTML = car.features.map(f => `<li>${f}</li>`).join('');
+    
     const whatsappBtn = document.getElementById('modal-whatsapp');
     const message = `Hola, me interesa el ${car.brand} ${car.model} (${car.year}) que vi en su inventario de Global Car Metepec.`;
     if(whatsappBtn) {
@@ -181,13 +181,13 @@ window.openModal = function(id) {
     document.body.style.overflow = 'hidden';
 }
 
+// Actualiza la imagen principal del modal y sincroniza las miniaturas
 function updateModalMainImage() {
     const mainImg = document.getElementById('modal-main-img');
     mainImg.style.opacity = '0.8';
     mainImg.src = currentModalImages[currentImageIndex];
-    setTimeout(() => {
-        mainImg.style.opacity = '1';
-    }, 150);
+    setTimeout(() => { mainImg.style.opacity = '1'; }, 150);
+    
     const thumbs = document.querySelectorAll('.gallery-thumbnails img');
     thumbs.forEach((img, idx) => {
         if(idx === currentImageIndex) img.classList.add('active');
@@ -195,6 +195,7 @@ function updateModalMainImage() {
     });
 }
 
+// Renderiza las imágenes pequeñas (miniaturas) debajo de la principal en el modal
 function renderThumbnails() {
     const container = document.getElementById('modal-thumbnails');
     container.innerHTML = currentModalImages.map((img, index) => `
@@ -205,31 +206,29 @@ function renderThumbnails() {
     `).join('');
 }
 
+// Navegación de imágenes en el modal (Siguiente, Anterior, Seleccionar)
 window.nextImage = function(e) {
     if(e) e.stopPropagation();
     currentImageIndex++;
     if (currentImageIndex >= currentModalImages.length) currentImageIndex = 0;
     updateModalMainImage();
 }
-
 window.prevImage = function(e) {
     if(e) e.stopPropagation();
     currentImageIndex--;
     if (currentImageIndex < 0) currentImageIndex = currentModalImages.length - 1;
     updateModalMainImage();
 }
-
 window.setModalImage = function(index) {
     currentImageIndex = index;
     updateModalMainImage();
 }
 
-// Configura el formulario de contacto
+// Configura los eventos de cierre para formularios y ventanas modales
 function setupContactForm() {
     const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', handleContactSubmit);
-    }
+    if (contactForm) contactForm.addEventListener('submit', handleContactSubmit);
+    
     closeModalBtns.forEach(btn => {
         btn.onclick = function() {
             this.closest('.modal').style.display = 'none';
@@ -244,7 +243,7 @@ function setupContactForm() {
     };
 }
 
-// Maneja el envío del formulario con validaciones
+// Valida el formulario y redirige a WhatsApp con los datos capturados
 function handleContactSubmit(e) {
     e.preventDefault();
     const form = e.target;
@@ -285,39 +284,23 @@ function handleContactSubmit(e) {
     }, 800);
 }
 
-// Funciones de lightbox
+// Configura el visor de imágenes en pantalla completa (Lightbox) y sus controles
 function setupLightboxEvents() {
     const mainImg = document.getElementById('modal-main-img');
-    if (mainImg) {
-        mainImg.addEventListener('click', () => {
-            openLightbox(mainImg.src);
-        });
-    }
-    if (closeLightbox) {
-        closeLightbox.addEventListener('click', closeLightboxFunc);
-    }
-    if (btnZoomToggle) {
-        btnZoomToggle.addEventListener('click', toggleLightboxZoom);
-    }
+    if (mainImg) mainImg.addEventListener('click', () => openLightbox(mainImg.src));
+    if (closeLightbox) closeLightbox.addEventListener('click', closeLightboxFunc);
+    if (btnZoomToggle) btnZoomToggle.addEventListener('click', toggleLightboxZoom);
+    
     if (lightboxImg) {
-        lightboxImg.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleLightboxZoom(e);
-        });
-        lightboxImg.addEventListener('mousemove', (e) => {
-            requestAnimationFrame(() => handleZoomMove(e));
-        });
+        lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); toggleLightboxZoom(e); });
+        lightboxImg.addEventListener('mousemove', (e) => requestAnimationFrame(() => handleZoomMove(e)));
         lightboxImg.addEventListener('touchmove', (e) => {
             if (lightboxImg.classList.contains('zoomed')) {
                 e.preventDefault();
                 requestAnimationFrame(() => handleZoomMove(e));
             }
         }, { passive: false });
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                closeLightboxFunc();
-            }
-        });
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightboxFunc(); });
     }
 
     const lightboxPrev = document.getElementById('lightbox-prev-btn');
@@ -343,6 +326,7 @@ function setupLightboxEvents() {
     }
 }
 
+// Lógicas de apertura, cierre y movimiento de zoom para el Lightbox
 function openLightbox(src) {
     if (!lightbox) return;
     lightboxImg.src = src;
@@ -350,7 +334,6 @@ function openLightbox(src) {
     requestAnimationFrame(() => lightbox.classList.add('active'));
     document.body.style.overflow = 'hidden';
 }
-
 function closeLightboxFunc() {
     lightbox.classList.remove('active');
     setTimeout(() => {
@@ -360,16 +343,12 @@ function closeLightboxFunc() {
         if (btnZoomToggle) btnZoomToggle.classList.remove('active');
     }, 300);
 }
-
 function toggleLightboxZoom(e) {
     e.stopPropagation();
     lightboxImg.classList.toggle('zoomed');
     if (btnZoomToggle) btnZoomToggle.classList.toggle('active');
-    if (!lightboxImg.classList.contains('zoomed')) {
-        lightboxImg.style.transformOrigin = 'center center';
-    }
+    if (!lightboxImg.classList.contains('zoomed')) lightboxImg.style.transformOrigin = 'center center';
 }
-
 function handleZoomMove(e) {
     if (!lightboxImg.classList.contains('zoomed')) return;
     let clientX, clientY;
@@ -388,6 +367,7 @@ function handleZoomMove(e) {
     lightboxImg.style.transformOrigin = `${xPercent}% ${yPercent}%`;
 }
 
+// Configura el desplazamiento suave para enlaces internos (#)
 function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -401,6 +381,7 @@ function setupSmoothScroll() {
     });
 }
 
+// Valida el campo del boletín y muestra alerta
 function setupNewsletter() {
     const newsletterBtn = document.querySelector('.newsletter-input button');
     if (newsletterBtn) {
@@ -417,6 +398,7 @@ function setupNewsletter() {
     }
 }
 
+// Controla el menú hamburguesa en dispositivos móviles
 function setupMobileMenu() {
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
@@ -435,6 +417,7 @@ function setupMobileMenu() {
     }
 }
 
+// Detecta gestos de deslizamiento (swipe) en móviles para cambiar de imagen
 function setupSwipe() {
     const gallery = document.querySelector('.main-image-wrapper');
     if (!gallery) return;
@@ -446,6 +429,7 @@ function setupSwipe() {
     }, {passive: true});
 }
 
+// Muestra alertas visuales flotantes (Toast) en pantalla
 function showNotification(message, type = "success") {
     const notification = document.createElement('div');
     notification.style.cssText = `position: fixed; top: 90px; right: 20px; background: ${type === 'success' ? '#4CAF50' : '#f44336'}; color: white; padding: 15px 25px; border-radius: 8px; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: sans-serif;`;
@@ -457,6 +441,7 @@ function showNotification(message, type = "success") {
     }, 3000);
 }
 
+// Previene el clic derecho sobre las imágenes para evitar descargas fáciles
 document.addEventListener('contextmenu', e => {
     if (e.target.tagName === 'IMG') e.preventDefault();
 });
