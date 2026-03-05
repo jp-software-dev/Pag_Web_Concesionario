@@ -2,6 +2,7 @@
 header('Content-Type: application/json');
 require_once '../config/config.php';
 
+// Genera lista simplificada (ID y Nombre) para llenar selects/dropdowns en formularios
 $stmt = $pdo->query("SELECT id, brand, model, year FROM vehicles ORDER BY brand, model");
 $options = [];
 while ($row = $stmt->fetch()) {
