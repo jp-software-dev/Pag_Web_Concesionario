@@ -1,19 +1,17 @@
 <?php
-// Especificamos que la respuesta de este archivo será en formato JSON
+// Configura la cabecera JSON e importa la conexión a la BD
 header('Content-Type: application/json');
 require_once '../config/config.php';
 
-// Método para obtener la lista completa de vehículos desde la Base de Datos
+// Obtiene los vehículos y estructura los datos para la API del Frontend
 $vehicles = getVehicles($pdo);
-
-// Mapeamos y reestructuramos los datos obtenidos de la BD para enviarlos limpios y ordenados al Frontend
 $result = array_map(function($v) {
     return [
         'id' => $v['id'],
         'brand' => $v['brand'],
         'model' => $v['model'],
         'year' => $v['year'],
-        'price' => number_format($v['price'], 2, '.', ''), 
+        'price' => number_format($v['price'], 2, '.', ''),
         'priceUnit' => $v['price_unit'],
         'kilometers' => $v['mileage'],
         'exteriorColor' => $v['exterior_color'],
@@ -21,7 +19,6 @@ $result = array_map(function($v) {
         'imageBase' => $v['image_base'],
         'imageExtension' => $v['image_extension'],
         'totalImages' => $v['total_images'],
-        
         'specs' => [
             'motor' => $v['engine'],
             'potencia' => $v['potencia'],
@@ -35,6 +32,6 @@ $result = array_map(function($v) {
     ];
 }, $vehicles);
 
-// Convertimos el arreglo a formato JSON y lo imprimimos (JSON_UNESCAPED_UNICODE evita que se rompan los acentos o las ñ)
+// Retorna el JSON final respetando acentos y caracteres especiales
 echo json_encode($result, JSON_UNESCAPED_UNICODE);
 ?>
