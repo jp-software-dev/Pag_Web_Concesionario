@@ -1,22 +1,21 @@
 <?php
+// Inicializa sesión, configuración global y enrutamiento base
 session_start();
-// Ruta corregida a config.php (sube un nivel)
 require_once '../config/config.php';
 define('IMAGE_PATH', __DIR__ . '/assets/images');
-
 $action = $_GET['action'] ?? 'dashboard';
 
-// LOGIN
+// Control de acceso y validación de credenciales del administrador
 if (!isset($_SESSION['admin_id']) && $action !== 'login') {
     $action = 'login';
 }
-
 if ($action === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     $stmt = $pdo->prepare("SELECT * FROM admins WHERE username = ?");
     $stmt->execute([$username]);
     $admin = $stmt->fetch();
+    
     if ($admin && password_verify($password, $admin['password_hash'])) {
         $_SESSION['admin_id'] = $admin['id'];
         $_SESSION['admin_user'] = $admin['username'];
@@ -27,14 +26,14 @@ if ($action === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST
     }
 }
 
-// LOGOUT
+// Cierra la sesión activa y redirige al login
 if ($action === 'logout') {
     session_destroy();
     header('Location: admin.php');
     exit;
 }
 
-// ELIMINAR
+// Elimina un vehículo de la base de datos junto con sus imágenes en el servidor
 if ($action === 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = (int)$_GET['id'];
     deleteCarImages($pdo, $id, IMAGE_PATH);
@@ -43,7 +42,7 @@ if ($action === 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
     exit;
 }
 
-// GUARDAR NUEVO
+// Registra un nuevo vehículo, sus características y procesa las imágenes iniciales
 if ($action === 'save' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $brand = $_POST['brand'];
     $model = $_POST['model'];
@@ -74,12 +73,14 @@ if ($action === 'save' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $totalImages = 0;
     $imageBase = '';
     $imageExt = '';
+    
     if (!empty($_FILES['images']['name'][0])) {
         $uploaded = $_FILES['images'];
         $numFiles = count($uploaded['name']);
         $imageBase = 'car_' . $vehicleId;
         $firstExt = strtolower(pathinfo($uploaded['name'][0], PATHINFO_EXTENSION));
         $allowed = ['jpg','jpeg','png','webp'];
+        
         if (in_array($firstExt, $allowed)) {
             $imageExt = '.' . $firstExt;
             $cont = 1;
@@ -96,12 +97,13 @@ if ($action === 'save' && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $totalImages = $cont - 1;
         }
     }
+    
     $pdo->prepare("UPDATE vehicles SET image_base=?, image_extension=?, total_images=? WHERE id=?")->execute([$imageBase, $imageExt, $totalImages, $vehicleId]);
     header('Location: admin.php?action=dashboard&msg=added');
     exit;
 }
 
-// ACTUALIZAR
+// Actualiza datos del vehículo, renueva características y gestiona adición/eliminación de imágenes
 if ($action === 'update' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $id = (int)$_POST['id'];
     $brand = $_POST['brand'];
@@ -139,6 +141,7 @@ if ($action === 'update' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POS
         $numFiles = count($uploaded['name']);
         $cont = $totalImages + 1;
         $allowed = ['jpg','jpeg','png','webp'];
+        
         for ($i=0; $i<$numFiles; $i++) {
             if ($uploaded['error'][$i]===0) {
                 $tmp = $uploaded['tmp_name'][$i];
@@ -164,6 +167,7 @@ if ($action === 'update' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POS
         $ext = $car['image_extension'];
         $total = $car['total_images'];
         $keep = [];
+        
         for ($i=1; $i<=$total; $i++) {
             if (!in_array($i, $toDelete)) {
                 $keep[] = $i;
@@ -172,6 +176,7 @@ if ($action === 'update' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POS
                 if (file_exists($file)) unlink($file);
             }
         }
+        
         $newTotal = count($keep);
         if ($newTotal > 0) {
             sort($keep);
@@ -185,11 +190,12 @@ if ($action === 'update' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POS
         }
         $pdo->prepare("UPDATE vehicles SET total_images = ? WHERE id = ?")->execute([$newTotal, $id]);
     }
+    
     header('Location: admin.php?action=dashboard&msg=updated');
     exit;
 }
 
-// INCLUIR VISTAS (están en el mismo directorio)
+// Carga la interfaz gráfica correspondiente según la acción solicitada
 if ($action === 'login') {
     include 'admin_login.php';
 } elseif ($action === 'dashboard') {

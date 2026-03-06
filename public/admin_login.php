@@ -23,6 +23,7 @@
                 <h2>Global Car Metepec</h2>
                 <p>Acceso exclusivo para administradores</p>
             </div>
+<<<<<<< HEAD
 
             <?php if (isset($error)): ?>
                 <div class="error-message">
@@ -34,6 +35,14 @@
                 <!-- Campo de usuario con mayor separación inferior -->
                 <div class="form-group" style="margin-bottom: 35px;">
                     <label><i class="fas fa-user" style="color: #c9a74d;"></i> USUARIO</label>
+=======
+            
+            <div id="error-message" class="error-message" style="display: none;"></div>
+            
+            <form method="post">
+                <div class="form-group">
+                    <label for="username">USUARIO</label>
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
                     <div class="input-wrapper">
                         <i class="fas fa-user" style="color: #c9a74d;"></i>
                         <input type="text" name="username" required placeholder="Ingresa tu usuario">
@@ -53,10 +62,18 @@
                     <i class="fas fa-sign-in-alt"></i> INGRESAR AL PANEL
                 </button>
             </form>
+<<<<<<< HEAD
+=======
+            
+            <div style="margin-top:20px; text-align:center; font-size:0.8rem; color:var(--gray);">
+                <i class="fas fa-shield-alt"></i> Acceso restringido
+            </div>
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
         </div>
     </div>
 
     <script>
+        // Función para mostrar u ocultar la contraseña escrita
         function togglePassword() {
             const passwordInput = document.getElementById('password');
             const toggleIcon = document.querySelector('.toggle-password');
@@ -70,6 +87,15 @@
                 toggleIcon.classList.add('fa-eye');
             }
         }
+<<<<<<< HEAD
+=======
+        
+        // Inyecta el mensaje de error de PHP en caso de credenciales inválidas
+        <?php if (isset($error)): ?>
+        document.getElementById('error-message').style.display = 'block';
+        document.getElementById('error-message').innerText = '<?php echo addslashes($error); ?>';
+        <?php endif; ?>
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
     </script>
 </body>
 </html>

@@ -131,6 +131,10 @@
                         <div class="image-preview">
                             <?php for ($i = 1; $i <= $car['total_images']; $i++): 
                                 $imgPath = 'assets/images/' . $car['image_base'] . $i . $car['image_extension'];
+<<<<<<< HEAD
+=======
+                                // Valida la existencia física del archivo para evitar enlaces rotos
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
                                 $fullPath = __DIR__ . '/' . $imgPath;
                                 $imgSrc = file_exists($fullPath) ? $imgPath : 'assets/images/placeholder.jpg';
                             ?>
@@ -174,6 +178,7 @@
     </div>
 
     <script>
+<<<<<<< HEAD
         function previewImage(src) {
             const modal = document.getElementById('previewModal');
             const img = document.getElementById('previewImg');
@@ -181,6 +186,9 @@
             modal.style.display = 'flex';
         }
 
+=======
+        // Confirma y ejecuta el borrado de las imágenes seleccionadas
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
         function confirmDeleteImages() {
             const checkboxes = document.querySelectorAll('input[name="delete_images[]"]:checked');
             if (checkboxes.length === 0) {
@@ -192,6 +200,7 @@
             }
         }
 
+<<<<<<< HEAD
         document.getElementById('vehicleForm').addEventListener('submit', function(e) {
             const submitBtn = document.getElementById('submitBtn');
             if (submitBtn.disabled) {
@@ -200,6 +209,19 @@
             }
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+=======
+        // Muestra en texto los nombres de los archivos listos para subir
+        document.querySelectorAll('.file-input').forEach(input => {
+            input.addEventListener('change', function() {
+                const infoDiv = this.closest('.form-group').querySelector('.file-info');
+                if (this.files.length > 0) {
+                    const names = Array.from(this.files).map(f => f.name).join(', ');
+                    infoDiv.innerHTML = `<i class="fas fa-check-circle" style="color:var(--gold);"></i> Seleccionados: ${names}`;
+                } else {
+                    infoDiv.innerHTML = '';
+                }
+            });
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
         });
 
         document.getElementById('imageUpload').addEventListener('change', function() {

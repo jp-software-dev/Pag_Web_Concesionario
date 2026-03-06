@@ -1,7 +1,9 @@
 <?php
+// Configura la cabecera JSON e importa la conexión a la BD
 header('Content-Type: application/json');
 require_once '../config/config.php';
 
+// Obtiene los vehículos y estructura los datos para la API del Frontend
 $vehicles = getVehicles($pdo);
 $result = array_map(function($v) {
     return [
@@ -30,5 +32,6 @@ $result = array_map(function($v) {
     ];
 }, $vehicles);
 
+// Retorna el JSON final respetando acentos y caracteres especiales
 echo json_encode($result, JSON_UNESCAPED_UNICODE);
 ?>

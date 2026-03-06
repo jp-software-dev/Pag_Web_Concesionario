@@ -1,6 +1,10 @@
 /* ==== 1. VARIABLES GLOBALES Y RESET ==== */
 
+<<<<<<< HEAD
 /* Define la paleta corporativa (Dorado sobre negro) */
+=======
+/* Define la paleta corporativa (Dark & Gold), sombras y transiciones base */
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 :root {
     --primary-black: #0a0a0a;
     --secondary-black: #1a1a1a;
@@ -44,7 +48,11 @@ body {
     padding: 20px;
 }
 
+<<<<<<< HEAD
 /* Diseño de la tarjeta principal del Login con borde superior dorado */
+=======
+/* Diseño de la tarjeta principal del Login con borde superior brillante */
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 .login-box {
     background: var(--secondary-black);
     border: 1px solid var(--gold-dark);
@@ -121,11 +129,14 @@ body {
     z-index: 1;
 }
 
+<<<<<<< HEAD
 /* Icono de candado (gris oscuro #444) - solo este es diferente */
 .input-wrapper .fa-lock {
     color: #444 !important; /* Forzar color gris oscuro */
 }
 
+=======
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 .login-box .input-wrapper input {
     width: 100%;
     padding: 12px 40px 12px 40px;
@@ -143,16 +154,26 @@ body {
     box-shadow: 0 0 0 3px rgba(201, 167, 77, 0.2);
 }
 
+<<<<<<< HEAD
 /* ===== MEJORA DEL OJO ===== */
 .input-wrapper input[type="password"],
 .input-wrapper input[type="text"] {
     padding-right: 45px; /* Espacio exclusivo para el icono */
+=======
+.input-wrapper input[type="password"],
+.input-wrapper input[type="text"] {
+    padding-right: 40px;
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 }
 
 /* Botón interactivo para mostrar/ocultar contraseña */
 .toggle-password {
     position: absolute;
+<<<<<<< HEAD
     right: 15px;
+=======
+    right: 5px;
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
     top: 50%;
     transform: translateY(-50%);
     color: var(--gray);
@@ -166,7 +187,11 @@ body {
     color: var(--gold);
 }
 
+<<<<<<< HEAD
 /* Diseño del botón principal de Login */
+=======
+/* Diseño del botón principal de Login y mensajes de error */
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 .btn-login {
     width: 100%;
     padding: 14px;
@@ -214,7 +239,11 @@ body {
     width: 100%;
 }
 
+<<<<<<< HEAD
 /* Cabecera del panel */
+=======
+/* Cabecera del panel con saludo al usuario y logo */
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 .dashboard-header {
     display: flex;
     justify-content: space-between;
@@ -268,6 +297,10 @@ body {
 
 /* ==== 4. SISTEMA DE BOTONES GLOBALES ==== */
 
+<<<<<<< HEAD
+=======
+/* Estilos base para todos los botones de acción en el panel */
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 .btn {
     padding: 10px 20px;
     border: none;
@@ -337,7 +370,11 @@ body {
     background: #d32f2f;
 }
 
+<<<<<<< HEAD
 /* Notificaciones */
+=======
+/* Notificaciones visuales de éxito */
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 .alert {
     padding: 15px;
     border-radius: 8px;
@@ -353,8 +390,14 @@ body {
     color: #4CAF50;
 }
 
+<<<<<<< HEAD
 /* ==== 5. TABLAS ==== */
 
+=======
+/* ==== 5. TABLAS DE DATOS (LISTADO DE AUTOS) ==== */
+
+/* Grilla para administrar el catálogo de vehículos */
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 .table-container {
     background: var(--secondary-black);
     border-radius: 12px;
@@ -392,6 +435,7 @@ tr:hover td {
     background: rgba(201, 167, 77, 0.05);
 }
 
+/* Ajustes visuales para la miniatura y botones dentro de la tabla */
 .vehicle-image {
     width: 60px;
     height: 40px;
@@ -407,8 +451,14 @@ tr:hover td {
     align-items: center;
 }
 
+<<<<<<< HEAD
 /* ==== 6. FORMULARIOS ==== */
 
+=======
+/* ==== 6. FORMULARIOS DE REGISTRO (ALTAS Y EDICIONES) ==== */
+
+/* Contenedores agrupados por temáticas (Motor, Precios, Fotos) */
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 .form-section {
     background: var(--secondary-black);
     border-radius: 12px;
@@ -432,6 +482,7 @@ tr:hover td {
     color: var(--gold);
 }
 
+/* Disposición en cuadrícula para los campos de texto */
 .form-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -459,6 +510,7 @@ tr:hover td {
     color: var(--gold);
 }
 
+/* Diseño general de inputs, selectores y áreas de texto */
 .form-group input,
 .form-group textarea,
 .form-group select {
@@ -478,6 +530,14 @@ tr:hover td {
     outline: none;
     border-color: var(--gold);
     box-shadow: 0 0 0 3px rgba(201, 167, 77, 0.2);
+<<<<<<< HEAD
+=======
+}
+
+.form-group input[readonly] {
+    background: rgba(255, 255, 255, 0.05);
+    cursor: not-allowed;
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 }
 
 textarea {
@@ -485,6 +545,10 @@ textarea {
     min-height: 120px;
 }
 
+<<<<<<< HEAD
+=======
+/* Controles de envío y notas informativas */
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 .btn-group {
     display: flex;
     gap: 15px;
@@ -509,8 +573,14 @@ textarea {
     margin-right: 5px;
 }
 
+<<<<<<< HEAD
 /* ==== 7. GESTOR DE IMÁGENES ==== */
 
+=======
+/* ==== 7. GESTOR DE IMÁGENES (VISTA PREVIA Y ELIMINACIÓN) ==== */
+
+/* Galería de fotos subidas con opción de borrar */
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 .image-actions {
     display: flex;
     align-items: center;
@@ -547,6 +617,7 @@ textarea {
     display: block;
 }
 
+/* Checkboxes y etiquetas de alerta roja para borrar imagen */
 .image-item input[type="checkbox"] {
     position: absolute;
     top: 5px;
@@ -579,6 +650,12 @@ textarea {
 
 /* ==== 8. FOOTER ==== */
 
+<<<<<<< HEAD
+=======
+/* ==== 8. PIE DE PÁGINA (FOOTER) ==== */
+
+/* Créditos del desarrollador fijos al fondo */
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 .footer {
     margin-top: auto;
     text-align: center;
@@ -608,8 +685,14 @@ textarea {
     transform: translateY(-2px);
 }
 
+<<<<<<< HEAD
 /* ==== 9. RESPONSIVE ==== */
 
+=======
+/* ==== 9. DISEÑO RESPONSIVO (MÓVILES Y TABLETS) ==== */
+
+/* Ajusta los anchos, alineaciones y la grilla cuando la pantalla es pequeña */
+>>>>>>> 954410783ea690ab57c66da374f860dba3801cfa
 @media (max-width: 768px) {
     .login-box {
         padding: 30px 20px;
