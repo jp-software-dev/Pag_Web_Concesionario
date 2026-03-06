@@ -3,67 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin · Global Car Metepec</title>
+    <title>Acceso Administrador · Global Car Metepec</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/admin.css">
+    <!-- HOJA DE ESTILOS CON VERSIÓN PARA ROMPER CACHÉ (v6) -->
+    <link rel="stylesheet" href="assets/css/admin.css?v=6">
 </head>
 <body>
     <div class="login-container">
-        <div class="login-box">
+        <div class="login-box" style="position: relative;">
+            <!-- Flecha para volver al inicio (ruta relativa corregida para XAMPP) -->
+            <a href="../index.php" style="position: absolute; top: 20px; left: 20px; color: #c9a74d; font-size: 1.5rem; text-decoration: none;">
+                <i class="fas fa-arrow-left"></i>
+            </a>
             <div class="login-header">
-                <i class="fas fa-crown"></i>
+                <i class="fas fa-crown" style="color: #c9a74d;"></i>
                 <h2>Global Car Metepec</h2>
-                <p>Acceso al panel de administración</p>
+                <p>Acceso exclusivo para administradores</p>
             </div>
-            <div id="error-message" class="error-message" style="display: none;"></div>
-            <form method="post">
-                <div class="form-group">
-                    <label for="username">USUARIO</label>
+
+            <?php if (isset($error)): ?>
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i> <?php echo $error; ?>
+                </div>
+            <?php endif; ?>
+
+            <form method="post" action="">
+                <!-- Campo de usuario con mayor separación inferior -->
+                <div class="form-group" style="margin-bottom: 35px;">
+                    <label><i class="fas fa-user" style="color: #c9a74d;"></i> USUARIO</label>
                     <div class="input-wrapper">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="username" name="username" placeholder="Ingresa tu usuario" required>
+                        <i class="fas fa-user" style="color: #c9a74d;"></i>
+                        <input type="text" name="username" required placeholder="Ingresa tu usuario">
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <label for="password">CONTRASEÑA</label>
+                    <label><i class="fas fa-lock" style="color: #444;"></i> CONTRASEÑA</label> <!-- Candado gris oscuro (#444) -->
                     <div class="input-wrapper">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="password" name="password" placeholder="••••••••" required>
-                        <span class="toggle-password" onclick="togglePassword()">
-                            <i class="fas fa-eye"></i>
-                        </span>
+                        <i class="fas fa-lock" style="color: #444;"></i> <!-- Candado gris oscuro -->
+                        <input type="password" name="password" id="password" required placeholder="••••••••">
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword()"></i>
                     </div>
                 </div>
+
                 <button type="submit" name="login" class="btn-login">
-                    <i class="fas fa-sign-in-alt"></i> INGRESAR
+                    <i class="fas fa-sign-in-alt"></i> INGRESAR AL PANEL
                 </button>
             </form>
-            <div style="margin-top:20px; text-align:center; font-size:0.8rem; color:var(--gray);">
-                <i class="fas fa-shield-alt"></i> Acceso restringido
-            </div>
         </div>
     </div>
+
     <script>
         function togglePassword() {
-            const p = document.getElementById('password');
-            const i = document.querySelector('.toggle-password i');
-            if (p.type === 'password') {
-                p.type = 'text';
-                i.classList.remove('fa-eye');
-                i.classList.add('fa-eye-slash');
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.querySelector('.toggle-password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
             } else {
-                p.type = 'password';
-                i.classList.remove('fa-eye-slash');
-                i.classList.add('fa-eye');
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
             }
         }
-        <?php if (isset($error)): ?>
-        document.getElementById('error-message').style.display = 'block';
-        document.getElementById('error-message').innerText = '<?php echo addslashes($error); ?>';
-        <?php endif; ?>
     </script>
 </body>
 </html>
