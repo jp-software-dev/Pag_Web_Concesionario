@@ -1,7 +1,9 @@
 <?php
+// Establece que la respuesta del archivo será en formato JSON y manda a llamar el archivo de configuración para conectar a la base de datos.
 header('Content-Type: application/json');
 require_once '../config/config.php';
 
+// Obtiene todos los vehículos de la base de datos y mapea cada registro para estructurar ordenadamente su información básica, especificaciones técnicas y características.
 $vehicles = getVehicles($pdo);
 $result = array_map(function($v) {
     return [
@@ -30,5 +32,6 @@ $result = array_map(function($v) {
     ];
 }, $vehicles);
 
+// Convierte el arreglo final a formato JSON, asegurando que los acentos y caracteres especiales no se rompan, y lo imprime como respuesta.
 echo json_encode($result, JSON_UNESCAPED_UNICODE);
 ?>

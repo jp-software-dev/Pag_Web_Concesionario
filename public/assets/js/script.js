@@ -1,3 +1,4 @@
+// Define las variables globales del catálogo, credenciales de contacto y selecciona todos los elementos necesarios del DOM para manipular la cuadrícula de autos, los filtros y las ventanas modales.
 let carsData = [];
 const NUMERO_DIRECTO = "+525539735554";
 const EMAIL_CONTACTO = "contacto@globalcarmetepec.mx";
@@ -18,8 +19,8 @@ let currentCarData = null;
 let touchStartX = 0;
 let touchEndX = 0;
 
+// Arranca la lógica principal al cargar la página. Solicita los datos de los vehículos al servidor, inicializa los filtros de búsqueda, llena las opciones de contacto y activa todos los componentes interactivos como el formulario y el menú móvil.
 document.addEventListener('DOMContentLoaded', () => {
-    // Cargar catálogo si estamos en la página de catálogo
     if (carsGrid) {
         fetch('api/vehicles.php')
             .then(response => response.json())
@@ -33,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error al cargar vehículos:', error));
     }
 
-    // Cargar opciones para el select de contacto
     const selectInteres = document.getElementById('car-interest');
     if (selectInteres) {
         fetch('api/vehicles_select.php')
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSwipe();
 });
 
-// Renderiza las tarjetas de autos
+// Borra el contenido actual de la cuadrícula y dibuja las tarjetas de los autos recibidos. Si la lista está vacía, muestra un mensaje de error visual; si hay autos, les aplica un retraso de animación individual para que aparezcan en cascada.
 function renderCars(cars) {
     if (!carsGrid) return;
     carsGrid.innerHTML = '';
@@ -81,12 +81,11 @@ function renderCars(cars) {
     carsGrid.appendChild(fragment);
 }
 
-// Crea una tarjeta individual
+// Crea la estructura HTML de cada tarjeta de auto. Define las rutas de imagen, agrega etiquetas de "NUEVO" si el año es reciente e inyecta la información técnica básica y el precio antes de devolver el elemento listo para usarse.
 function createCarCard(car) {
     const card = document.createElement('div');
     card.className = 'car-card';
     const isNew = car.year >= 2024;
-    // Ruta corregida a public/assets/images/
     const imagePath = car.imageBase ? `public/assets/images/${car.imageBase}1${car.imageExtension}` : 'public/assets/images/placeholder.jpg';
     card.innerHTML = `
         ${isNew ? '<div class="car-badge">NUEVO</div>' : ''}
@@ -110,7 +109,7 @@ function createCarCard(car) {
     return card;
 }
 
-// Filtra y ordena
+// Procesa los filtros de marca y precio seleccionados por el usuario. Realiza el filtrado sobre los datos originales y luego aplica el ordenamiento solicitado (por precio o año) antes de mandar la lista final a dibujarse nuevamente.
 function filterCars() {
     if (!carsData.length) return;
     const brandValue = brandFilter.value;
@@ -142,7 +141,7 @@ function filterCars() {
     renderCars(filtered);
 }
 
-// Abre el modal de detalles
+// Controla la apertura del modal detallado del vehículo. Recolecta toda la galería de imágenes, rellena las especificaciones técnicas completas, genera el enlace personalizado para WhatsApp y bloquea el scroll del sitio para enfocar la vista del usuario.
 window.openModal = function(id) {
     if (!modal) return;
     const car = carsData.find(c => c.id === id);
@@ -181,6 +180,7 @@ window.openModal = function(id) {
     document.body.style.overflow = 'hidden';
 }
 
+// Actualiza la imagen principal mostrada en el modal con un breve efecto de opacidad para suavizar el cambio. Simultáneamente, recorre las miniaturas inferiores para marcar como activa la que corresponde a la imagen actual.
 function updateModalMainImage() {
     const mainImg = document.getElementById('modal-main-img');
     mainImg.style.opacity = '0.8';
@@ -195,6 +195,7 @@ function updateModalMainImage() {
     });
 }
 
+// Crea dinámicamente el listado de imágenes miniatura para la galería del modal. Les asigna un evento de clic para que el usuario pueda saltar directamente a cualquier foto del vehículo seleccionado.
 function renderThumbnails() {
     const container = document.getElementById('modal-thumbnails');
     container.innerHTML = currentModalImages.map((img, index) => `
@@ -205,6 +206,7 @@ function renderThumbnails() {
     `).join('');
 }
 
+// Funciones globales para controlar el carrusel de imágenes del modal. Permiten avanzar o retroceder fotos de forma circular, deteniendo la propagación del evento para no interferir con otros elementos de la interfaz.
 window.nextImage = function(e) {
     if(e) e.stopPropagation();
     currentImageIndex++;
@@ -224,7 +226,7 @@ window.setModalImage = function(index) {
     updateModalMainImage();
 }
 
-// Configura el formulario de contacto
+// Configura el formulario de contacto y los eventos de cierre para los modales. Permite cerrar las ventanas haciendo clic en los botones de "X" o fuera del área de contenido del modal, restaurando el scroll normal de la página.
 function setupContactForm() {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
@@ -244,7 +246,7 @@ function setupContactForm() {
     };
 }
 
-// Maneja el envío del formulario con validaciones
+// Valida y procesa los datos del formulario de contacto. Verifica el formato del correo y teléfono, cambia el estado del botón a "procesando" y finalmente construye un mensaje de WhatsApp formateado para abrirlo en una nueva pestaña según el dispositivo.
 function handleContactSubmit(e) {
     e.preventDefault();
     const form = e.target;
@@ -285,7 +287,7 @@ function handleContactSubmit(e) {
     }, 800);
 }
 
-// Funciones de lightbox
+// Inicializa todos los eventos del visor de imágenes a pantalla completa (lightbox). Maneja el zoom interactivo, el movimiento del mouse para explorar la foto ampliada, y los controles de navegación para pasar de imagen sin salir del visor.
 function setupLightboxEvents() {
     const mainImg = document.getElementById('modal-main-img');
     if (mainImg) {
@@ -343,6 +345,7 @@ function setupLightboxEvents() {
     }
 }
 
+// Activa el visor de fotos en pantalla completa, inyectando la imagen seleccionada y aplicando clases de animación. Se asegura de ocultar el scroll del navegador mientras el visor está activo.
 function openLightbox(src) {
     if (!lightbox) return;
     lightboxImg.src = src;
@@ -351,6 +354,7 @@ function openLightbox(src) {
     document.body.style.overflow = 'hidden';
 }
 
+// Cierra el visor de imágenes y limpia los estados de zoom y posicionamiento. Utiliza un temporizador para esperar a que la animación de salida termine antes de ocultar el elemento por completo.
 function closeLightboxFunc() {
     lightbox.classList.remove('active');
     setTimeout(() => {
@@ -361,6 +365,7 @@ function closeLightboxFunc() {
     }, 300);
 }
 
+// Activa o desactiva el aumento de la imagen en el visor. Al desactivarlo, restaura el punto de origen de la transformación al centro para evitar que la imagen quede desplazada.
 function toggleLightboxZoom(e) {
     e.stopPropagation();
     lightboxImg.classList.toggle('zoomed');
@@ -370,6 +375,7 @@ function toggleLightboxZoom(e) {
     }
 }
 
+// Calcula la posición relativa del cursor o el dedo sobre la imagen ampliada para ajustar el punto de enfoque del zoom. Utiliza porcentajes basados en el tamaño del contenedor para mover la imagen suavemente.
 function handleZoomMove(e) {
     if (!lightboxImg.classList.contains('zoomed')) return;
     let clientX, clientY;
@@ -388,6 +394,7 @@ function handleZoomMove(e) {
     lightboxImg.style.transformOrigin = `${xPercent}% ${yPercent}%`;
 }
 
+// Configura el desplazamiento suave para los enlaces internos que usan anclas (#). Busca el elemento de destino en el documento y utiliza la API nativa de scroll para moverse de forma fluida.
 function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -401,6 +408,7 @@ function setupSmoothScroll() {
     });
 }
 
+// Maneja la suscripción al boletín informativo revisando que el correo contenga un formato básico. Muestra una notificación de éxito o error y limpia el campo después de una suscripción válida.
 function setupNewsletter() {
     const newsletterBtn = document.querySelector('.newsletter-input button');
     if (newsletterBtn) {
@@ -417,6 +425,7 @@ function setupNewsletter() {
     }
 }
 
+// Controla el menú de navegación lateral para pantallas pequeñas. Alterna el ícono de barras por el de una cruz y bloquea el desplazamiento del cuerpo de la página cuando el menú está desplegado.
 function setupMobileMenu() {
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
@@ -435,6 +444,7 @@ function setupMobileMenu() {
     }
 }
 
+// Implementa la funcionalidad de deslizar (swipe) para la galería de imágenes en dispositivos táctiles. Calcula la diferencia entre el punto inicial y final del toque para cambiar de imagen a la izquierda o derecha.
 function setupSwipe() {
     const gallery = document.querySelector('.main-image-wrapper');
     if (!gallery) return;
@@ -446,6 +456,7 @@ function setupSwipe() {
     }, {passive: true});
 }
 
+// Crea e inyecta una alerta visual flotante en la parte superior derecha de la pantalla. Personaliza el color y el ícono según sea un mensaje de éxito o de error, y la elimina automáticamente tras 3 segundos.
 function showNotification(message, type = "success") {
     const notification = document.createElement('div');
     notification.style.cssText = `position: fixed; top: 90px; right: 20px; background: ${type === 'success' ? '#4CAF50' : '#f44336'}; color: white; padding: 15px 25px; border-radius: 8px; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: sans-serif;`;
@@ -457,6 +468,7 @@ function showNotification(message, type = "success") {
     }, 3000);
 }
 
+// Desactiva el menú de clic derecho únicamente sobre las etiquetas de imagen en todo el sitio para dificultar la descarga directa de las fotografías de los vehículos.
 document.addEventListener('contextmenu', e => {
     if (e.target.tagName === 'IMG') e.preventDefault();
 });

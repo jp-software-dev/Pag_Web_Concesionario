@@ -1,3 +1,4 @@
+/* Define la paleta de colores, fuentes, sombras y transiciones base, además de resetear márgenes y paddings para que el sitio se vea igual en todos los navegadores. */
 :root {
     --primary-black: #0a0a0a;
     --secondary-black: #1a1a1a;
@@ -30,6 +31,8 @@ body {
     position: relative;
 }
 
+/* ===== DECORACIONES DE FONDO ===== */
+/* Crea los círculos difuminados y las líneas sutiles que flotan en el fondo para darle profundidad visual y elegancia a la interfaz sin estorbar el contenido. */
 .background-decorations {
     position: fixed;
     top: 0;
@@ -89,6 +92,8 @@ body {
     left: 0;
 }
 
+/* ===== LAYOUT Y TIPOGRAFÍA ===== */
+/* Establece el contenedor centrado para el contenido, define la fuente elegante para títulos y configura clases de utilidad para textos dorados y divisores. */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -120,6 +125,8 @@ h1, h2, h3, h4 {
     max-width: 600px;
 }
 
+/* ===== BOTONES ===== */
+/* Estiliza los botones del sitio, incluyendo el diseño principal con degradado dorado, la versión con borde y los botones circulares con iconos. */
 .btn {
     padding: 14px 32px;
     border: none;
@@ -185,6 +192,8 @@ h1, h2, h3, h4 {
     transform: scale(1.1);
 }
 
+/* ===== CABECERA Y NAVEGACIÓN ===== */
+/* Configura el encabezado fijo, el diseño del logotipo y la lista de enlaces de navegación con sus respectivos efectos de subrayado al pasar el cursor. */
 header {
     background-color: transparent;
     padding: 20px 0;
@@ -264,6 +273,8 @@ header {
     color: var(--gold);
 }
 
+/* ===== SECCIÓN HERO ===== */
+/* Estructura la sección de impacto inicial con fondo de pantalla completa, textos gigantes, estadísticas rápidas en tarjetas de vidrio y el indicador de scroll animado. */
 .hero {
     height: 100vh;
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('../images/zFondoInicioAutos.webp');
@@ -358,6 +369,8 @@ header {
     transition: opacity 0.3s;
 }
 
+/* ===== ANIMACIONES ===== */
+/* Define los movimientos de rebote para el indicador de scroll y las transiciones de aparición (fade up y fade in) para los elementos dinámicos. */
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
         transform: translateY(0) translateX(-50%);
@@ -392,6 +405,8 @@ header {
     }
 }
 
+/* ===== CATÁLOGO Y FILTROS ===== */
+/* Estiliza la sección de inventario, incluyendo el grupo de filtros con selectores personalizados y la cuadrícula donde se muestran todos los vehículos. */
 .catalog-section {
     padding: 100px 20px;
     position: relative;
@@ -447,6 +462,8 @@ select option {
     margin-bottom: 60px;
 }
 
+/* ===== TARJETAS DE AUTOS ===== */
+/* Diseño de las tarjetas individuales de vehículos: incluye la imagen con efecto de zoom, etiquetas de estado, precios destacados y el botón de detalles. */
 .car-card {
     background-color: var(--secondary-black);
     border: 1px solid var(--gray-dark);
@@ -501,6 +518,7 @@ select option {
     padding: 25px;
     flex-grow: 1;
     display: flex;
+    box-sizing: border-box;
     flex-direction: column;
 }
 
@@ -569,6 +587,8 @@ select option {
     color: var(--primary-black);
 }
 
+/* ===== UBICACIÓN Y MAPA ===== */
+/* Configura la sección de dirección física, integrando cajas de información de contacto y el contenedor para el mapa interactivo. */
 .location-section {
     padding: 100px 20px;
     background: var(--secondary-black);
@@ -638,6 +658,8 @@ select option {
     border: none;
 }
 
+/* ===== SECCIÓN DE CONTACTO ===== */
+/* Diseña el formulario de contacto y la información de asistencia directa, aplicando estilos oscuros y selectores personalizados. */
 .contact-section {
     padding: 100px 20px;
     background: linear-gradient(180deg, var(--secondary-black), var(--primary-black));
@@ -738,6 +760,8 @@ select option {
     padding-right: 40px;
 }
 
+/* ===== MODAL DE DETALLES ===== */
+/* Estiliza la ventana emergente de detalles, dividiendo la pantalla en galería de imágenes a la izquierda y ficha técnica con equipamiento a la derecha. */
 .modal {
     display: none;
     position: fixed;
@@ -816,6 +840,7 @@ select option {
     overflow: hidden;
 }
 
+/* Flechas de navegación del carrusel en el modal. */
 .main-image-wrapper .nav-arrow {
     position: absolute;
     top: 50%;
@@ -980,6 +1005,8 @@ select option {
     min-width: 200px;
 }
 
+/* ===== VISOR LIGHTBOX ===== */
+/* Estilos para el visor a pantalla completa de las fotografías con controles de zoom y navegación lateral. */
 .lightbox {
     display: none;
     position: fixed;
@@ -1091,6 +1118,8 @@ select option {
     z-index: 3001;
 }
 
+/* ===== FOOTER ===== */
+/* Diseño del pie de página oscuro con columnas de información legal, certificaciones y botones sociales. */
 footer {
     background-color: #050505;
     padding: 80px 0 20px;
@@ -1203,6 +1232,8 @@ footer {
     color: var(--gold);
 }
 
+/* ===== SCROLLBAR PERSONALIZADA ===== */
+/* Ajusta el diseño de la barra de desplazamiento lateral del navegador con tonos dorados. */
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -1221,6 +1252,8 @@ footer {
     background: var(--gold);
 }
 
+/* ===== RESPONSIVO: TABLETS (< 1024PX) ===== */
+/* Reajusta los grids de contacto y ubicación a una sola columna y oculta controles avanzados en el visor. */
 @media (max-width: 1024px) {
     .lightbox-controls {
         display: none !important;
@@ -1256,6 +1289,8 @@ footer {
     }
 }
 
+/* ===== RESPONSIVO: MÓVILES (< 768PX) ===== */
+/* Configura el menú hamburguesa, apila las tarjetas de autos en una columna y **mueve el contador de fotos a la derecha**. */
 @media (max-width: 768px) {
     .logo, .scroll-indicator {
         display: none;
@@ -1450,6 +1485,27 @@ footer {
     .contact-form button {
         margin: 20px auto;
     }
+
+    /* AQUÍ SE APLICA TU CORRECCIÓN: Contador movido a la derecha */
+    .modal-image-counter {
+        top: 10px !important;
+        right: 10px !important;
+        left: auto !important;
+        background: rgba(0, 0, 0, 0.4) !important;
+        padding: 2px 6px !important;
+        font-size: 0.55rem !important;
+        min-width: 30px;
+    }
+    
+    /* AQUÍ SE APLICA TU CORRECCIÓN: Contador del visor movido a la derecha */
+    .image-viewer-counter {
+        top: 10px !important;
+        right: 10px !important;
+        left: auto !important;
+        padding: 3px 8px !important;
+        font-size: 0.6rem !important;
+        min-width: 35px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1479,6 +1535,9 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* ===== ICONO DE ADMINISTRACIÓN ===== */
+/* Estilo para el pequeño círculo de acceso administrativo en el header. */
 .admin-icon {
     margin-left: 15px;
     display: flex;
@@ -1504,7 +1563,6 @@ footer {
     transform: scale(1.1);
 }
 
-/* Ajuste para móvil */
 @media (max-width: 768px) {
     .admin-icon {
         margin-left: auto;

@@ -6,11 +6,13 @@
     <title>Inventario - Global Car Metepec</title>
     <meta name="description" content="Inventario exclusivo Global Car Metepec. Autos premium disponibles para entrega inmediata.">
     <meta name="theme-color" content="#c9a74d">
+    
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://globalcarmetepec.mx/catalogo.html">
+    <meta property="og:url" content="https://globalcarmetepec.mx/catalogo.php">
     <meta property="og:title" content="Inventario | Global Car Metepec">
     <meta property="og:description" content="Vehículos premium seleccionados para entusiastas y coleccionistas.">
     <meta property="og:image" content="public/assets/images/logo.png">
+    
     <link rel="icon" type="image/png" href="public/assets/images/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +30,6 @@
             margin: 0;
         }
     </style>
-    
 </head>
 <body>
     <div class="background-decorations" aria-hidden="true">
@@ -41,18 +42,18 @@
 
     <header id="navbar">
         <div class="container header-content">
-            <a href="index.html" class="logo">Global Car <span>Metepec</span></a>
+            <a href="index.php" class="logo">Global Car <span>Metepec</span></a>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="#" class="text-gold active">Inventario</a></li>
-                    <li><a href="index.html#ubicacion">Ubicación</a></li>
-                    <li><a href="index.html#contacto">Contacto</a></li>
+                    <li><a href="index.php">Inicio</a></li>
+                    <li><a href="catalogo.php" class="text-gold active" aria-current="page">Inventario</a></li>
+                    <li><a href="index.php#ubicacion">Ubicación</a></li>
+                    <li><a href="index.php#contacto">Contacto</a></li>
                 </ul>
             </nav>
-            <div class="hamburger" aria-label="Abrir menú">
+            <button class="hamburger" aria-label="Abrir menú de navegación" aria-expanded="false">
                 <i class="fas fa-bars"></i>
-            </div>
+            </button>
         </div>
     </header>
 
@@ -66,10 +67,10 @@
                 <p class="section-subtitle">Vehículos de alta gama seleccionados para entrega inmediata</p>
             </div>
 
-            <div class="filters">
+            <div class="filters" role="search">
                 <div class="filter-group">
-                    <i class="fas fa-filter"></i>
-                    <select id="brand-filter" aria-label="Filtrar por marca">
+                    <i class="fas fa-filter" aria-hidden="true"></i>
+                    <select id="brand-filter" aria-label="Filtrar por marca de vehículo">
                         <option value="all">Todas las Marcas</option>
                         <option value="Lamborghini">Lamborghini</option>
                         <option value="Ferrari">Ferrari</option>
@@ -79,8 +80,8 @@
                     </select>
                 </div>
                 <div class="filter-group">
-                    <i class="fas fa-dollar-sign"></i>
-                    <select id="price-filter" aria-label="Filtrar por presupuesto">
+                    <i class="fas fa-dollar-sign" aria-hidden="true"></i>
+                    <select id="price-filter" aria-label="Filtrar por rango de presupuesto">
                         <option value="all">Filtrar por Presupuesto</option>
                         <option value="low">Menos de 2 MDP</option>
                         <option value="mid">2 MDP - 5 MDP</option>
@@ -88,8 +89,8 @@
                     </select>
                 </div>
                 <div class="filter-group">
-                    <i class="fas fa-sort-amount-down"></i>
-                    <select id="sort-filter" aria-label="Ordenar listado">
+                    <i class="fas fa-sort-amount-down" aria-hidden="true"></i>
+                    <select id="sort-filter" aria-label="Ordenar listado de vehículos">
                         <option value="default">Orden: Relevancia</option>
                         <option value="price-asc">Precio: Menor a Mayor</option>
                         <option value="price-desc">Precio: Mayor a Menor</option>
@@ -98,9 +99,8 @@
                 </div>
             </div>
 
-            <div id="cars-grid" class="cars-grid">
-                <!-- Se llena con JS -->
-            </div>
+            <div id="cars-grid" class="cars-grid" aria-live="polite">
+                </div>
         </section>
     </main>
 
@@ -112,26 +112,25 @@
             </div>
             <div class="footer-col">
                 <h3>Ubicación</h3>
-                <p><i class="fas fa-map-marker-alt"></i>Blvd. Toluca-Metepec 234 Nte, Santa Cruz, Metepec.</p>
+                <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Blvd. Toluca-Metepec 234 Nte, Santa Cruz, Metepec.</p>
             </div>
             <div class="footer-col">
                 <h3>Redes Sociales</h3>
                 <div class="social-links">
-                    <a href="https://facebook.com" target="_blank" class="social-link" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                    <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://tiktok.com" target="_blank" class="social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Síguenos en Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Síguenos en Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Síguenos en TikTok"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <div class="footer-copyright">© 2026 Global Car Metepec. Todos los derechos reservados.</div>
+            <div class="footer-copyright">&copy; 2026 Global Car Metepec. Todos los derechos reservados.</div>
             <div class="footer-links">
-                <a href="public/assets/docs/aviso-privacidad.pdf" target="_blank">
-                    <i class="fas fa-file-pdf"></i> Aviso de Privacidad
+                <a href="public/assets/docs/aviso-privacidad.pdf" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-file-pdf" aria-hidden="true"></i> Aviso de Privacidad
                 </a>
-                <!-- Candado de admin movido aquí -->
                 <div class="admin-icon" style="margin: 0;">
-                    <a href="public/admin.php" target="_blank" rel="noopener noreferrer" title="Panel de Administración">
+                    <a href="public/admin.php" target="_blank" rel="noopener noreferrer" title="Panel de Administración" aria-label="Acceso a panel de control">
                         <i class="fas fa-lock"></i>
                     </a>
                 </div>
@@ -139,19 +138,15 @@
         </div>
     </footer>
 
-    <div id="car-modal" class="modal" aria-hidden="true">
+    <div id="car-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
         <div class="modal-content">
-            <button class="close-modal" aria-label="Cerrar modal">×</button>
+            <button class="close-modal" aria-label="Cerrar detalles del vehículo">&times;</button>
             <div class="modal-body">
                 <div class="modal-gallery">
                     <div class="main-image-wrapper">
-                        <button class="nav-arrow prev" onclick="prevImage()" aria-label="Imagen anterior">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <img src="" alt="Detalle del vehículo" id="modal-main-img">
-                        <button class="nav-arrow next" onclick="nextImage()" aria-label="Siguiente imagen">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+                        <button class="nav-arrow prev" onclick="prevImage()" aria-label="Ver imagen anterior"><i class="fas fa-chevron-left"></i></button>
+                        <img src="" alt="Fotografía principal del vehículo" id="modal-main-img" loading="lazy">
+                        <button class="nav-arrow next" onclick="nextImage()" aria-label="Ver siguiente imagen"><i class="fas fa-chevron-right"></i></button>
                     </div>
                     <div class="thumbnails-container">
                         <div class="gallery-thumbnails" id="modal-thumbnails"></div>
@@ -162,12 +157,12 @@
                     <p class="modal-price" id="modal-price">$0</p>
                     <div class="specs-grid" id="modal-specs"></div>
                     <div class="luxury-features">
-                        <h3>Detalles</h3>
+                        <h3>Detalles Adicionales</h3>
                         <ul id="modal-features"></ul>
                     </div>
                     <div class="modal-actions">
                         <a href="#" class="btn btn-outline" id="modal-whatsapp" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-whatsapp"></i> Cotizar por WhatsApp
+                            <i class="fab fa-whatsapp" aria-hidden="true"></i> Cotizar por WhatsApp
                         </a>
                     </div>
                 </div>
@@ -175,16 +170,16 @@
         </div>
     </div>
 
-    <div id="fullscreen-lightbox" class="lightbox" aria-hidden="true">
-        <button class="close-lightbox" aria-label="Cerrar vista completa">×</button>
-        <button class="nav-arrow lightbox-prev" id="lightbox-prev-btn"><i class="fas fa-chevron-left"></i></button>
+    <div id="fullscreen-lightbox" class="lightbox" aria-hidden="true" role="dialog">
+        <button class="close-lightbox" aria-label="Cerrar vista completa">&times;</button>
+        <button class="nav-arrow lightbox-prev" id="lightbox-prev-btn" aria-label="Imagen anterior"><i class="fas fa-chevron-left"></i></button>
         <div class="lightbox-content">
-            <img src="" id="lightbox-img" alt="Vista completa">
+            <img src="" id="lightbox-img" alt="Vista ampliada del vehículo" loading="lazy">
             <div class="lightbox-controls">
-                <button id="btn-zoom-toggle" class="btn-icon" aria-label="Zoom"><i class="fas fa-search-plus"></i></button>
+                <button id="btn-zoom-toggle" class="btn-icon" aria-label="Alternar Zoom"><i class="fas fa-search-plus"></i></button>
             </div>
         </div>
-        <button class="nav-arrow lightbox-next" id="lightbox-next-btn"><i class="fas fa-chevron-right"></i></button>
+        <button class="nav-arrow lightbox-next" id="lightbox-next-btn" aria-label="Siguiente imagen"><i class="fas fa-chevron-right"></i></button>
     </div>
 
     <script src="public/assets/js/script.js"></script>

@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="assets/css/admin.css?v=6">
 </head>
 <body>
     <div class="dashboard-container">
@@ -25,7 +25,6 @@
                 <input type="hidden" name="id" value="<?php echo $car['id']; ?>">
             <?php endif; ?>
 
-            <!-- SECCIÓN: Información básica -->
             <div class="form-section">
                 <h3><i class="fas fa-info-circle"></i> Información básica</h3>
                 <div class="form-row">
@@ -41,7 +40,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label><i class="fas fa-calendar"></i> AÑO *</label>
-                        <input type="number" name="year" value="<?php echo isset($car) ? $car['year'] : ''; ?>" required placeholder="2023">
+                        <input type="number" name="year" value="<?php echo isset($car) ? $car['year'] : ''; ?>" required placeholder="2023" min="1900" max="<?php echo date('Y')+1; ?>">
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-tachometer-alt"></i> KILOMETRAJE *</label>
@@ -65,12 +64,11 @@
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-dollar-sign"></i> PRECIO (MDP) *</label>
-                        <input type="number" step="0.01" name="price" value="<?php echo isset($car) ? $car['price'] : ''; ?>" required placeholder="1.65">
+                        <input type="number" step="0.01" name="price" value="<?php echo isset($car) ? $car['price'] : ''; ?>" required placeholder="1.65" min="0">
                     </div>
                 </div>
             </div>
 
-            <!-- SECCIÓN: Especificaciones técnicas -->
             <div class="form-section">
                 <h3><i class="fas fa-cog"></i> Especificaciones técnicas</h3>
                 <div class="form-row">
@@ -105,11 +103,10 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN: Características -->
             <div class="form-section">
                 <h3><i class="fas fa-list-ul"></i> Características</h3>
                 <div class="form-group">
-                    <textarea name="features" rows="6" placeholder="Sistema de escape deportivo&#10;Rines de aleación&#10;Faros LED"><?php 
+                    <textarea name="features" rows="6" placeholder="Ejemplo:&#10;Sistema de escape deportivo&#10;Rines de aleación 20&#10;Faros LED con láser"><?php 
                         if (isset($car) && !empty($car['features'])) {
                             echo htmlspecialchars(implode("\n", $car['features']));
                         }
@@ -120,7 +117,6 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN: Imágenes -->
             <div class="form-section">
                 <h3><i class="fas fa-images"></i> Imágenes</h3>
 
@@ -135,36 +131,36 @@
                         <div class="image-preview">
                             <?php for ($i = 1; $i <= $car['total_images']; $i++): 
                                 $imgPath = 'assets/images/' . $car['image_base'] . $i . $car['image_extension'];
-                                // CORRECCIÓN: Usamos __DIR__ para obtener la ruta absoluta correcta dentro de 'public'
                                 $fullPath = __DIR__ . '/' . $imgPath;
                                 $imgSrc = file_exists($fullPath) ? $imgPath : 'assets/images/placeholder.jpg';
                             ?>
-                            <div class="image-item">
-                                <img src="<?php echo $imgSrc; ?>" alt="Imagen vehículo">
+                            <div class="image-item" title="Haz clic para vista previa">
+                                <img src="<?php echo $imgSrc; ?>" alt="Imagen vehículo" onclick="previewImage('<?php echo $imgSrc; ?>')">
                                 <input type="checkbox" name="delete_images[]" value="<?php echo $i; ?>">
                                 <div class="delete-label">Eliminar</div>
                             </div>
                             <?php endfor; ?>
                         </div>
-                        <div class="info-text">
-                            <i class="fas fa-info-circle"></i> Marca las imágenes que deseas eliminar y haz clic en "Eliminar seleccionadas".
+                        <div class="info-text" style="margin-bottom: 25px; padding-bottom: 10px; border-bottom: 1px dashed var(--gray-dark);">
+                            <i class="fas fa-info-circle"></i> Marca las imágenes que deseas eliminar y haz clic en "Eliminar seleccionadas". Las restantes se renombrarán automáticamente.
                         </div>
                     </div>
                 <?php endif; ?>
 
-                <div class="form-group">
-                    <label><i class="fas fa-upload"></i> <?php echo isset($car) ? 'Agregar nuevas imágenes' : 'Subir imágenes (hasta 20)'; ?></label>
-                    <input type="file" name="<?php echo isset($car) ? 'new_images[]' : 'images[]'; ?>" multiple accept="image/*" class="file-input">
-                    <div class="info-text">
-                        <i class="fas fa-info-circle"></i> Formatos permitidos: JPG, PNG, WEBP. Se renombrarán automáticamente.
+                <div style="margin-top: 30px; border-top: 1px solid var(--gray-dark); padding-top: 20px;">
+                    <div class="form-group">
+                        <label><i class="fas fa-upload"></i> <?php echo isset($car) ? 'Agregar nuevas imágenes' : 'Subir imágenes (hasta 20)'; ?></label>
+                        <input type="file" name="<?php echo isset($car) ? 'new_images[]' : 'images[]'; ?>" multiple accept="image/jpeg,image/png,image/webp" class="file-input" id="imageUpload">
+                        <div class="info-text">
+                            <i class="fas fa-info-circle"></i> Formatos permitidos: JPG, PNG, WEBP. Tamaño máximo recomendado: 2MB por imagen.
+                        </div>
+                        <div class="file-info info-text" id="fileInfo"></div>
                     </div>
-                    <div class="file-info info-text"></div>
                 </div>
             </div>
 
-            <!-- Botones -->
             <div class="btn-group">
-                <button type="submit" class="btn btn-primary btn-sm">
+                <button type="submit" class="btn btn-primary btn-sm" id="submitBtn">
                     <i class="fas fa-save"></i> <?php echo isset($car) ? 'Actualizar Vehículo' : 'Guardar Vehículo'; ?>
                 </button>
                 <a href="?action=dashboard" class="btn btn-outline btn-sm"><i class="fas fa-times"></i> Cancelar</a>
@@ -172,7 +168,19 @@
         </form>
     </div>
 
+    <!-- Modal para vista previa de imágenes -->
+    <div id="previewModal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;" onclick="this.style.display='none'">
+        <img id="previewImg" src="" style="max-width:90%; max-height:90%; border:3px solid var(--gold); border-radius:8px;">
+    </div>
+
     <script>
+        function previewImage(src) {
+            const modal = document.getElementById('previewModal');
+            const img = document.getElementById('previewImg');
+            img.src = src;
+            modal.style.display = 'flex';
+        }
+
         function confirmDeleteImages() {
             const checkboxes = document.querySelectorAll('input[name="delete_images[]"]:checked');
             if (checkboxes.length === 0) {
@@ -184,17 +192,45 @@
             }
         }
 
-        document.querySelectorAll('.file-input').forEach(input => {
-            input.addEventListener('change', function() {
-                const infoDiv = this.closest('.form-group').querySelector('.file-info');
-                if (this.files.length > 0) {
-                    const names = Array.from(this.files).map(f => f.name).join(', ');
-                    infoDiv.innerHTML = `<i class="fas fa-check-circle" style="color:var(--gold);"></i> Seleccionados: ${names}`;
-                } else {
-                    infoDiv.innerHTML = '';
-                }
-            });
+        document.getElementById('vehicleForm').addEventListener('submit', function(e) {
+            const submitBtn = document.getElementById('submitBtn');
+            if (submitBtn.disabled) {
+                e.preventDefault();
+                return;
+            }
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
         });
+
+        document.getElementById('imageUpload').addEventListener('change', function() {
+            const fileInfo = document.getElementById('fileInfo');
+            const files = this.files;
+            if (files.length > 0) {
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+                let invalidFiles = [];
+                let validNames = [];
+                for (let i = 0; i < files.length; i++) {
+                    if (!allowedTypes.includes(files[i].type)) {
+                        invalidFiles.push(files[i].name);
+                    } else {
+                        validNames.push(files[i].name);
+                    }
+                }
+                if (invalidFiles.length > 0) {
+                    fileInfo.innerHTML = `<i class="fas fa-exclamation-triangle" style="color:#f44336;"></i> Archivos no válidos: ${invalidFiles.join(', ')}. Solo se permiten JPG, PNG, WEBP.`;
+                    this.value = '';
+                } else {
+                    fileInfo.innerHTML = `<i class="fas fa-check-circle" style="color:var(--gold);"></i> Seleccionados: ${validNames.join(', ')}`;
+                }
+            } else {
+                fileInfo.innerHTML = '';
+            }
+        });
+
+        window.onpageshow = function() {
+            document.getElementById('submitBtn').disabled = false;
+            document.getElementById('submitBtn').innerHTML = '<i class="fas fa-save"></i> <?php echo isset($car) ? 'Actualizar Vehículo' : 'Guardar Vehículo'; ?>';
+        };
     </script>
 </body>
 </html>

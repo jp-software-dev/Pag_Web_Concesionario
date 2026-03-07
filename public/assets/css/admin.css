@@ -1,3 +1,4 @@
+/* Configura los colores maestros (negro y dorado), sombras y transiciones base para todo el proyecto. */
 :root {
     --primary-black: #0a0a0a;
     --secondary-black: #1a1a1a;
@@ -8,11 +9,12 @@
     --gray-light: #cccccc;
     --gray: #888888;
     --gray-dark: #444444;
-    --shadow: 0 10px 30px rgba(0,0,0,0.3);
-    --shadow-light: 0 5px 15px rgba(0,0,0,0.2);
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.2);
     --transition: all 0.3s ease;
 }
 
+/* Limpia los márgenes del navegador y establece el tipo de letra y el alto mínimo de la pantalla. */
 * {
     margin: 0;
     padding: 0;
@@ -28,7 +30,9 @@ body {
     flex-direction: column;
 }
 
-/* ========== LOGIN ========== */
+/* ==== 2. SECCIÓN DE LOGIN ==== */
+
+/* Contenedor flexible que centra la tarjeta de acceso tanto vertical como horizontalmente. */
 .login-container {
     flex: 1;
     display: flex;
@@ -37,6 +41,7 @@ body {
     padding: 20px;
 }
 
+/* Estiliza la tarjeta de inicio de sesión con fondo oscuro y una línea de adorno dorada en la parte superior. */
 .login-box {
     background: var(--secondary-black);
     border: 1px solid var(--gold-dark);
@@ -59,6 +64,7 @@ body {
     background: linear-gradient(90deg, var(--gold), var(--gold-light));
 }
 
+/* Alinea los textos del encabezado y define el tamaño del icono principal del candado. */
 .login-header {
     text-align: center;
     margin-bottom: 30px;
@@ -81,8 +87,9 @@ body {
     font-size: 0.9rem;
 }
 
+/* Diseña las etiquetas y los contenedores de los campos de entrada de texto. */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px; 
     position: relative;
 }
 
@@ -100,20 +107,25 @@ body {
     position: relative;
 }
 
+/* Posiciona los iconos decorativos dentro de los campos de texto y fuerza el color gris en el icono de bloqueo. */
 .input-wrapper i:first-child {
     position: absolute;
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--gray);
+    color: var(--gold);
     font-size: 1rem;
     z-index: 1;
 }
 
-/* INPUTS: padding reducido 2px */
+.input-wrapper .fa-lock {
+    color: #444 !important; 
+}
+
+/* Da formato a los inputs de texto: fondo negro, bordes grises y espacio para los iconos laterales. */
 .login-box .input-wrapper input {
     width: 100%;
-    padding: 12px 40px 12px 40px;   /* Antes 14px 45px */
+    padding: 12px 40px 12px 40px;
     background: var(--primary-black);
     border: 1px solid var(--gray-dark);
     border-radius: 8px;
@@ -125,25 +137,24 @@ body {
 .input-wrapper input:focus {
     outline: none;
     border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(201,167,77,0.2);
+    box-shadow: 0 0 0 3px rgba(201, 167, 77, 0.2);
 }
 
-/* Ajustes para el ojito de contraseña */
 .input-wrapper input[type="password"],
 .input-wrapper input[type="text"] {
-    padding-right: 40px;   /* Coherente con el nuevo padding */
+    padding-right: 45px; 
 }
 
-/* OJITO: más a la izquierda */
+/* Botón interactivo ("ojito") que permite al usuario alternar la visibilidad de su contraseña. */
 .toggle-password {
     position: absolute;
-    right: 5px;            /* Antes 15px */
+    right: 15px;
     top: 50%;
     transform: translateY(-50%);
     color: var(--gray);
     cursor: pointer;
     font-size: 1.2rem;
-    z-index: 2;
+    z-index: 10;
     transition: var(--transition);
 }
 
@@ -151,7 +162,7 @@ body {
     color: var(--gold);
 }
 
-/* Botón de login */
+/* Estilo del botón principal de acceso con degradado dorado y efecto de elevación al pasar el mouse. */
 .btn-login {
     width: 100%;
     padding: 14px;
@@ -179,8 +190,9 @@ body {
     box-shadow: var(--shadow-light);
 }
 
+/* Formato de la alerta roja que aparece cuando las credenciales de acceso son incorrectas. */
 .error-message {
-    background: rgba(244,67,54,0.1);
+    background: rgba(244, 67, 54, 0.1);
     border: 1px solid #f44336;
     color: #f44336;
     padding: 12px;
@@ -189,7 +201,9 @@ body {
     text-align: center;
 }
 
-/* ========== DASHBOARD ========== */
+/* ==== 3. PANEL DE ADMINISTRACIÓN (DASHBOARD) ==== */
+
+/* Centra el contenido del panel administrativo y define el ancho máximo permitido. */
 .dashboard-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -197,6 +211,7 @@ body {
     width: 100%;
 }
 
+/* Diseña la barra superior del panel con fondo secundario y bordes grises. */
 .dashboard-header {
     display: flex;
     justify-content: space-between;
@@ -210,6 +225,7 @@ body {
     border: 1px solid var(--gray-dark);
 }
 
+/* Organiza los textos del título a la izquierda y la información del usuario a la derecha. */
 .header-left {
     display: flex;
     align-items: center;
@@ -248,7 +264,9 @@ body {
     color: var(--gold);
 }
 
-/* Botones generales */
+/* ==== 4. SISTEMA DE BOTONES GLOBALES ==== */
+
+/* Base de diseño para todos los botones del sistema: paddings, bordes y transiciones. */
 .btn {
     padding: 10px 20px;
     border: none;
@@ -263,6 +281,7 @@ body {
     font-size: 0.9rem;
 }
 
+/* Estilos de color para los distintos tipos de botones: principal, con borde o de peligro. */
 .btn-primary {
     background: var(--gold);
     color: var(--primary-black);
@@ -294,14 +313,13 @@ body {
     background: #d32f2f;
 }
 
-/* Botones pequeños */
+/* Variaciones de tamaño más pequeñas para botones dentro de tablas o listas. */
 .btn-sm {
     padding: 8px 16px;
     font-size: 0.85rem;
     border-radius: 6px;
 }
 
-/* Botón de peligro pequeño */
 .btn-danger-sm {
     background: #f44336;
     color: white;
@@ -320,7 +338,7 @@ body {
     background: #d32f2f;
 }
 
-/* Alertas */
+/* Formato de los mensajes de notificación de éxito (fondo verde suave). */
 .alert {
     padding: 15px;
     border-radius: 8px;
@@ -331,20 +349,24 @@ body {
 }
 
 .alert-success {
-    background: rgba(76,175,80,0.1);
+    background: rgba(76, 175, 80, 0.1);
     border: 1px solid #4CAF50;
     color: #4CAF50;
 }
 
-/* Tablas */
+/* ==== 5. TABLAS ==== */
+
+/* Diseña el contenedor de tablas con soporte para desplazamiento lateral en pantallas pequeñas. */
 .table-container {
     background: var(--secondary-black);
     border-radius: 12px;
     border: 1px solid var(--gray-dark);
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 20px;
 }
 
+/* Estilo de los encabezados de tabla: textos en mayúsculas y color dorado. */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -362,6 +384,7 @@ th {
     letter-spacing: 1px;
 }
 
+/* Formato de las celdas y efecto de resaltado al pasar el ratón sobre una fila. */
 td {
     padding: 15px;
     border-bottom: 1px solid var(--gray-dark);
@@ -370,9 +393,10 @@ td {
 }
 
 tr:hover td {
-    background: rgba(201,167,77,0.05);
+    background: rgba(201, 167, 77, 0.05);
 }
 
+/* Miniaturas de los vehículos y alineación de los botones de acción en cada fila. */
 .vehicle-image {
     width: 60px;
     height: 40px;
@@ -388,9 +412,9 @@ tr:hover td {
     align-items: center;
 }
 
-/* ========== FORMULARIOS (para admin_form.php) ========== */
+/* ==== 6. FORMULARIOS ==== */
 
-/* Secciones de formulario */
+/* Divide el formulario en bloques visuales con títulos dorados y líneas de separación. */
 .form-section {
     background: var(--secondary-black);
     border-radius: 12px;
@@ -410,10 +434,7 @@ tr:hover td {
     padding-bottom: 10px;
 }
 
-.form-section h3 i {
-    color: var(--gold);
-}
-
+/* Organiza los campos en filas automáticas y diseña las etiquetas con iconos dorados. */
 .form-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -441,6 +462,7 @@ tr:hover td {
     color: var(--gold);
 }
 
+/* Estilo base para todos los controles del formulario y sus estados de enfoque (focus). */
 .form-group input,
 .form-group textarea,
 .form-group select {
@@ -459,21 +481,15 @@ tr:hover td {
 .form-group select:focus {
     outline: none;
     border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(201,167,77,0.2);
+    box-shadow: 0 0 0 3px rgba(201, 167, 77, 0.2);
 }
 
-.form-group input[readonly] {
-    background: rgba(255,255,255,0.05);
-    cursor: not-allowed;
-}
-
+/* Define el área de botones al final de los formularios y el texto informativo pequeño. */
 textarea {
     resize: vertical;
     min-height: 120px;
-    font-family: 'Montserrat', sans-serif;
 }
 
-/* Grupo de botones */
 .btn-group {
     display: flex;
     gap: 15px;
@@ -487,7 +503,6 @@ textarea {
     min-width: 150px;
 }
 
-/* Texto informativo */
 .info-text {
     color: var(--gray-light);
     font-size: 0.85rem;
@@ -499,7 +514,9 @@ textarea {
     margin-right: 5px;
 }
 
-/* ===== IMÁGENES (preview y eliminación) ===== */
+/* ==== 7. GESTOR DE IMÁGENES ==== */
+
+/* Alineación de los botones de carga y la cuadrícula de previsualización de fotos. */
 .image-actions {
     display: flex;
     align-items: center;
@@ -515,6 +532,7 @@ textarea {
     margin: 15px 0;
 }
 
+/* Cada miniatura de imagen con su casilla para marcar borrado y efecto de zoom al pasar el mouse. */
 .image-item {
     position: relative;
     width: 100px;
@@ -536,6 +554,7 @@ textarea {
     display: block;
 }
 
+/* Casilla de selección y etiqueta roja de "eliminar" sobrepuestas en la miniatura. */
 .image-item input[type="checkbox"] {
     position: absolute;
     top: 5px;
@@ -552,7 +571,7 @@ textarea {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.7);
     color: #f44336;
     font-size: 0.7rem;
     text-align: center;
@@ -566,12 +585,9 @@ textarea {
     word-break: break-all;
 }
 
-.file-info i {
-    color: var(--gold);
-    margin-right: 5px;
-}
+/* ==== 8. FOOTER ==== */
 
-/* === FOOTER === */
+/* Pie de página centrado con línea superior y enlaces dorados interactivos. */
 .footer {
     margin-top: auto;
     text-align: center;
@@ -601,7 +617,9 @@ textarea {
     transform: translateY(-2px);
 }
 
-/* ===== RESPONSIVE ===== */
+/* ==== 9. RESPONSIVE ==== */
+
+/* Ajustes finales para celulares: apila elementos en vertical, ajusta paddings y convierte el grid del formulario a una sola columna. */
 @media (max-width: 768px) {
     .login-box {
         padding: 30px 20px;
@@ -618,7 +636,9 @@ textarea {
     }
 
     .btn-group .btn {
-        min-width: 100%;
+        flex: 0 1 auto;
+        min-width: auto;
+        margin: 5px 0;
     }
 
     .form-row {

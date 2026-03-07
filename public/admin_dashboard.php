@@ -8,20 +8,30 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/admin.css">
+    <!-- HOJA DE ESTILOS CON VERSIÓN PARA ROMPER CACHÉ (v6) -->
+    <link rel="stylesheet" href="assets/css/admin.css?v=6">
 </head>
 <body>
     <div class="dashboard-container">
+        
+        <!-- HEADER: orden intercambiado (primero Hola admin, luego Volver al inicio) -->
         <div class="dashboard-header">
             <div class="header-left">
                 <i class="fas fa-crown"></i>
                 <h1>Global Car <span>Metepec</span></h1>
             </div>
             <div class="header-right">
+                <!-- Primero el saludo al usuario -->
                 <div class="user-info">
                     <i class="fas fa-user-circle"></i>
                     <span>Hola, <?php echo htmlspecialchars($_SESSION['admin_user']); ?></span>
                 </div>
+
+                <!-- Luego el botón "Volver al inicio" con ruta relativa corregida -->
+                <a href="../index.php" class="btn btn-outline btn-sm">
+                    <i class="fas fa-undo-alt"></i> Volver al inicio
+                </a>
+
                 <a href="?action=add" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Nuevo</a>
                 <a href="?action=logout" class="btn btn-outline btn-sm"><i class="fas fa-sign-out-alt"></i> Salir</a>
             </div>
@@ -31,9 +41,9 @@
         <div class="alert alert-success">
             <i class="fas fa-check-circle"></i>
             <?php
-            if ($_GET['msg'] == 'added') echo 'Vehículo agregado.';
-            elseif ($_GET['msg'] == 'updated') echo 'Vehículo actualizado.';
-            elseif ($_GET['msg'] == 'deleted') echo 'Vehículo eliminado.';
+            if ($_GET['msg'] == 'added') echo 'Vehículo agregado al catálogo.';
+            elseif ($_GET['msg'] == 'updated') echo 'Datos del vehículo actualizados.';
+            elseif ($_GET['msg'] == 'deleted') echo 'Vehículo eliminado del sistema.';
             ?>
         </div>
         <?php endif; ?>
@@ -67,7 +77,7 @@
                         <td>$<?php echo number_format($v['price'],2); ?> MDP</td>
                         <td class="action-buttons">
                             <a href="?action=edit&id=<?php echo $v['id']; ?>" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Editar</a>
-                            <a href="?action=delete&id=<?php echo $v['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar este vehículo?')"><i class="fas fa-trash"></i> Eliminar</a>
+                            <a href="?action=delete&id=<?php echo $v['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar este vehículo del inventario de forma permanente?')"><i class="fas fa-trash"></i> Eliminar</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -79,6 +89,7 @@
             <div>© 2026 Global Car Metepec · Todos los derechos reservados</div>
             <div><a href="assets/docs/aviso-privacidad.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Aviso de Privacidad</a></div>
         </div>
+        
     </div>
 </body>
 </html>
